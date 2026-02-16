@@ -7,6 +7,18 @@ Based on Microsoft's blog post: [Copilot Studio agent security: Top 10 risks you
 <img width="1916" height="871" alt="image" src="https://github.com/user-attachments/assets/c1e9370c-3637-4512-b16a-f74981303c8c" />
 <img width="1915" height="850" alt="image" src="https://github.com/user-attachments/assets/0b3bbed7-e82c-4e0f-abe3-3413b508d30d" />
 
+## Background — AIAgentsInfo table
+
+This scanner queries the [`AIAgentsInfo`](https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-aiagentsinfo-table) table in Microsoft Defender XDR Advanced Hunting. The table is currently in **Preview** and is populated by Microsoft Defender for Cloud Apps once the [AI agent inventory](https://learn.microsoft.com/en-us/defender-cloud-apps/ai-agent-inventory) is enabled.
+
+### Enabling the AI agent inventory
+
+Enabling the Copilot Studio AI agent inventory requires collaboration between a **Defender admin** and a **Power Platform admin**:
+
+1. In the [Microsoft Defender portal](https://security.microsoft.com/) → **System > Settings > Cloud Apps > Copilot Studio AI Agents** — turn on the toggle.
+2. In the [Power Platform admin center](https://admin.preview.powerplatform.microsoft.com/security/threatdetection) → **Security > Threat Protection** — select **Microsoft Defender - Copilot Studio AI Agents** and enable it.
+
+It can take up to 30 minutes for the initial connection, and longer for the full inventory to populate depending on environment size.
 
 ## What it does
 
