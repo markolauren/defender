@@ -1,0 +1,4227 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "## Coverage\nThis workbook has been created to provide a consolidated view of coverage for Defender for Cloud plans and offerings across all selected subscriptions and multi-cloud connectors.\n"
+      },
+      "name": "Defender for Cloud Coverage"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "7a8be0a4-2557-43c9-afb5-9e3c9fdc11f7",
+            "version": "KqlParameterItem/1.0",
+            "name": "Subscriptions",
+            "type": 6,
+            "isRequired": true,
+            "multiSelect": true,
+            "quote": "'",
+            "delimiter": ",",
+            "value": [
+              "value::all"
+            ],
+            "typeSettings": {
+              "additionalResourceOptions": [
+                "value::all"
+              ],
+              "includeAll": true,
+              "showDefault": false
+            }
+          },
+          {
+            "id": "d4e04df2-4d8b-4127-b769-de821c7895db",
+            "version": "KqlParameterItem/1.0",
+            "name": "info",
+            "label": "Additional information",
+            "type": 10,
+            "isRequired": true,
+            "value": "Off",
+            "typeSettings": {
+              "additionalResourceOptions": []
+            },
+            "jsonData": "[\n { \"value\": \"On\", \"label\": \"On\"},\n { \"value\": \"Off\", \"label\": \"Off\"}\n]",
+            "timeContext": {
+              "durationMs": 86400000
+            }
+          },
+          {
+            "id": "f22a92ae-4573-499f-8921-8857be250f14",
+            "version": "KqlParameterItem/1.0",
+            "name": "relativeCoverage",
+            "label": "Relative coverage",
+            "type": 10,
+            "isRequired": true,
+            "typeSettings": {
+              "additionalResourceOptions": []
+            },
+            "jsonData": "[\n { \"value\": \"Yes\", \"label\": \"Yes\"},\n { \"value\": \"No\", \"label\": \"No\"}\n]",
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "value": "No"
+          },
+          {
+            "id": "49faad8a-8c99-4343-b11b-be188eb082a6",
+            "version": "KqlParameterItem/1.0",
+            "name": "absoluteCoverage",
+            "type": 10,
+            "isRequired": true,
+            "typeSettings": {
+              "additionalResourceOptions": []
+            },
+            "jsonData": "[\n { \"value\": \"Yes\", \"label\": \"Yes\"},\n { \"value\": \"No\", \"label\": \"No\"}\n]",
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "value": "Yes",
+            "label": "Absolute coverage"
+          },
+          {
+            "id": "d5c581af-3a66-401b-8862-dc2950449389",
+            "version": "KqlParameterItem/1.0",
+            "name": "detailedCoverage",
+            "label": "Detailed coverage",
+            "type": 10,
+            "isRequired": true,
+            "typeSettings": {
+              "additionalResourceOptions": []
+            },
+            "jsonData": "[\n { \"value\": \"Yes\", \"label\": \"Yes\"},\n { \"value\": \"No\", \"label\": \"No\"}\n]",
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "value": "No"
+          }
+        ],
+        "style": "above",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "name": "info"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "Use the different filter options above to show relative, absolute, and detailed coverage for your environment.\n\n- **Relative coverage** shows the percentage of subscriptions/connectors that have a particular Defender for Cloud plan enabled.\n- **Absolute coverage** shows each plan's status per subscription.\n- The **detailed coverage** section has been added to show additional settings that can/need to be enabled on relevant plans in order to get each plan's full value."
+      },
+      "conditionalVisibility": {
+        "parameterName": "info",
+        "comparison": "isEqualTo",
+        "value": "On"
+      },
+      "name": "infoText"
+    },
+    {
+      "type": 1,
+      "content": {
+        "json": "## Release notes\n\n|Version|Description|Date|\n|---|---|---|\n| v1.0 | initial release, public availability of Defender for Cloud Coverage Workbook | January 20, 2022 |\n| v1.1 | adding navigation menu and coverage for AWS connectors | February 21, 2022 |\n| v1.2 | Updating AWS query and adding coverage for GCP connectors after API update | March 23, 2022|\n| v1.3 | adding Defender for Servers P1/P2 | April 7, 2022 |\n| v1.4 | adding relative coverage | April 14, 2022 |\n| v1.5 | adding coverage for Defender for Databases on multicloud connectors | June 27, 2022|\n| v1.6 | adding coverage for Defender CSPM | October 12, 2022 |\n| v1.7 | adding information about Defender for Storage pricing tier | February 28, 2023 |\n| v1.8 | updating queries for business model changes in Defender for Resource Manager, DNS, Key Vault | July 31, 2023|\n| v1.9 | adding detailed coverage for relevant plans' extensions | September 08, 2023|\n| v1.10 | adding detailed coverage for multicloud connectors | November 08, 2023|\n| v1.11 | adding number of impacted assets per plan | October 06, 2025|\n| v1.12 | adding ai and api workloads | October 07, 2025|"
+      },
+      "conditionalVisibility": {
+        "parameterName": "info",
+        "comparison": "isEqualTo",
+        "value": "On"
+      },
+      "name": "releaseNotes"
+    },
+    {
+      "type": 11,
+      "content": {
+        "version": "LinkItem/1.0",
+        "style": "tabs",
+        "links": [
+          {
+            "id": "f01ff401-7135-4a30-be83-bdb218f4c0c4",
+            "cellValue": "environment",
+            "linkTarget": "parameter",
+            "linkLabel": "Microsoft Azure",
+            "subTarget": "Azure",
+            "preText": "Azure",
+            "style": "link"
+          },
+          {
+            "id": "a88fa96b-9ced-4f3e-bb64-e9d629668c27",
+            "cellValue": "environment",
+            "linkTarget": "parameter",
+            "linkLabel": "Amazon Web Services (AWS)",
+            "subTarget": "AWS",
+            "style": "link"
+          },
+          {
+            "id": "3db97502-377e-4da3-a64b-4fd2fbaebbee",
+            "cellValue": "environment",
+            "linkTarget": "parameter",
+            "linkLabel": "Google Cloud Platform (GCP)",
+            "subTarget": "GCP",
+            "style": "link"
+          }
+        ]
+      },
+      "name": "menu"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "a439f55f-2e3a-4f12-8d61-cdf74e5cec08",
+            "version": "KqlParameterItem/1.0",
+            "name": "planName",
+            "label": "Coverage details per plan",
+            "type": 10,
+            "isRequired": true,
+            "typeSettings": {
+              "additionalResourceOptions": [],
+              "showDefault": false
+            },
+            "jsonData": "[\n { \"value\": \"DCSPM\", \"label\": \"Defender CSPM\"},\n { \"value\": \"Servers\", \"label\": \"Defender for Servers Plan 2\"},\n { \"value\": \"Containers\", \"label\": \"Defender for Containers\"},\n { \"value\": \"Storage\", \"label\": \"Defender for Storage V2\"}\n]",
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "value": "DCSPM"
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "conditionalVisibilities": [
+        {
+          "parameterName": "detailedCoverage",
+          "comparison": "isEqualTo",
+          "value": "Yes"
+        },
+        {
+          "parameterName": "environment",
+          "comparison": "isEqualTo",
+          "value": "Azure"
+        }
+      ],
+      "name": "planNames"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "66e71735-5f5f-4d8b-a5da-0e8977518c45",
+            "version": "KqlParameterItem/1.0",
+            "name": "planName_mc",
+            "label": "Coverage details per plan",
+            "type": 10,
+            "isRequired": true,
+            "typeSettings": {
+              "additionalResourceOptions": [],
+              "showDefault": false
+            },
+            "jsonData": "[\n { \"value\": \"DCSPM\", \"label\": \"Defender CSPM\"},\n { \"value\": \"Servers\", \"label\": \"Defender for Servers\"},\n { \"value\": \"Containers\", \"label\": \"Defender for Containers\"},\n { \"value\": \"Databases\", \"label\": \"Defender for Databases\"}\n]",
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "value": "DCSPM"
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "conditionalVisibilities": [
+        {
+          "parameterName": "detailedCoverage",
+          "comparison": "isEqualTo",
+          "value": "Yes"
+        },
+        {
+          "parameterName": "environment",
+          "comparison": "isNotEqualTo",
+          "value": "Azure"
+        }
+      ],
+      "name": "planNames multicloud"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 1,
+            "content": {
+              "json": "## Defender for Cloud coverage by Azure subscriptions"
+            },
+            "name": "headingAzure"
+          },
+          {
+            "type": 1,
+            "content": {
+              "json": "This section provides an overview of all selected subscriptions and their corresponding Defender status per plan. The ***Relative coverage across Azure subscriptions*** table shows the percentage of subscriptions that have a particular plan enabled. In the ***Absolute coverage across Azure subscriptions*** table, you can click the on/off status per plan and subscription. Doing so, you will be redirected to the subscription's Defender for Cloud plan configuration page. With that, you can easily see your Defender for Cloud coverage per subscription and immediately react in case you want to enable additional plans on it."
+            },
+            "conditionalVisibility": {
+              "parameterName": "info",
+              "comparison": "isEqualTo",
+              "value": "On"
+            },
+            "name": "infoAzure"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "securityresources\n| where type =~ \"microsoft.security/pricings\"\n| extend pricingTier = properties.pricingTier, subPlan = properties.subPlan\n| extend planSet = pack(name, level = case(isnotempty(subPlan), subPlan, pricingTier))\n| summarize defenderPlans = make_bag(planSet) by subscriptionId\n| project subscriptionId,\n    CloudPosture = defenderPlans.CloudPosture,\n    VirtualMachines = defenderPlans.VirtualMachines,\n    AppServices = defenderPlans.AppServices,\n    SqlServers = defenderPlans.SqlServers,\n    SqlServerVirtualMachines = defenderPlans.SqlServerVirtualMachines,\n    OpenSourceRelationalDatabases = defenderPlans.OpenSourceRelationalDatabases,\n    CosmosDB = defenderPlans.CosmosDbs,\n    StorageAccounts = defenderPlans.StorageAccounts,\n    Containers = defenderPlans.Containers,\n    KeyVaults = defenderPlans.KeyVaults,\n    AI = defenderPlans.AI,\n    APIs = defenderPlans.Api,\n    Arm = defenderPlans.Arm,\n    DNS = defenderPlans.Dns,\n    KubernetesService = defenderPlans.KubernetesService,\n    ContainerRegistry = defenderPlans.ContainerRegistry\n| summarize\n    totalSubs = count(),\n    CSPM = countif(CloudPosture == \"Standard\"),\n    Servers = countif(VirtualMachines == \"P1\" or VirtualMachines == \"P2\"),\n    AppSrv = countif(AppServices == \"Standard\"),\n    SqlServers = countif(SqlServers == \"Standard\"),\n    SqlServerVirtualMachines = countif(SqlServerVirtualMachines == \"Standard\"),\n    OpenSourceRelationalDatabases = countif(OpenSourceRelationalDatabases == \"Standard\"),\n    CosmosDB = countif(CosmosDB == \"Standard\"),\n    StorageAccounts = countif(StorageAccounts in (\"PerTransaction\", \"DefenderForStorageV2\", \"PerStorageAccount\")),\n    Containers = countif(Containers == \"Standard\"),\n    KeyVaults = countif(KeyVaults in (\"PerKeyVault\", \"PerTransaction\")),\n    DefenderAI = countif(AI == \"Standard\"),\n    DefenderAPIs = countif(APIs == \"Standard\"),\n    Arm = countif(Arm in (\"PerApiCall\", \"PerSubscription\")),\n    DNS = countif(DNS == \"Standard\"),\n    KubernetesService = countif(KubernetesService == \"Standard\"),\n    ContainerRegistry = countif(ContainerRegistry == \"Standard\")\n",
+              "size": 3,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "visualization": "table",
+              "tileSettings": {
+                "showBorder": false
+              },
+              "graphSettings": {
+                "type": 0
+              }
+            },
+            "customWidth": "10",
+            "conditionalVisibility": {
+              "parameterName": "blank",
+              "comparison": "isNotEqualTo"
+            },
+            "name": "Azure numbers"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\",\"mergeType\":\"table\",\"leftTable\":\"Azure numbers\"}],\"projectRename\":[{\"originalName\":\"[Azure numbers].totalSubs\",\"mergedName\":\"totalSubs\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].CSPM\",\"mergedName\":\"CSPM\",\"fromId\":\"unknown\"},{\"originalName\":\"[Azure numbers].Servers\",\"mergedName\":\"Servers\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].AppSrv\",\"mergedName\":\"AppSrv\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].SqlServers\",\"mergedName\":\"SqlServers\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].SqlServerVirtualMachines\",\"mergedName\":\"SqlServerVirtualMachines\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].OpenSourceRelationalDatabases\",\"mergedName\":\"OpenSourceRelationalDatabases\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].CosmosDB\",\"mergedName\":\"CosmosDB\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].StorageAccounts\",\"mergedName\":\"StorageAccounts\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].Containers\",\"mergedName\":\"Containers\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].KeyVaults\",\"mergedName\":\"KeyVaults\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].Arm\",\"mergedName\":\"Arm\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].DNS\",\"mergedName\":\"DNS\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].KubernetesService\",\"mergedName\":\"KubernetesService\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Azure numbers].ContainerRegistry\",\"mergedName\":\"ContainerRegistry\",\"fromId\":\"17975ef8-d504-4965-a0ca-3e25f6c5203c\"},{\"originalName\":\"[Added column]\",\"mergedName\":\"CSPM1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"CSPM\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Servers1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"Servers\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"AppSrv1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"AppSrv\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"SQL1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"SqlServers\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"SQL Server on machines\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"SqlServerVirtualMachines\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Open-source relational DBs\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"OpenSourceRelationalDatabases\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Cosmos DB\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"CosmosDB\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Storage1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"StorageAccounts\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Containers1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"Containers\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Key Vaults\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"KeyVaults\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Azure numbers].DefenderAI\",\"mergedName\":\"AI\",\"fromId\":\"unknown\"},{\"originalName\":\"[Azure numbers].DefenderAPIs\",\"mergedName\":\"APIs\",\"fromId\":\"unknown\"},{\"originalName\":\"[Added column]\",\"mergedName\":\"Resource Manager\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"Arm\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"DNS1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"DNS\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"K8s (deprecated)\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"KubernetesService\\\"]/[\\\"totalSubs\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Container Registry (deprecated)\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"ContainerRegistry\\\"]/[\\\"totalSubs\\\"]*100\"}}]}]}",
+              "size": 4,
+              "title": "Relative coverage across Azure subscriptions",
+              "showExportToExcel": true,
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "totalSubs",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "CSPM",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Servers",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "AppSrv",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "SqlServers",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "SqlServerVirtualMachines",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "OpenSourceRelationalDatabases",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "CosmosDB",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "StorageAccounts",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Containers",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "KeyVaults",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Arm",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "DNS",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "KubernetesService",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "ContainerRegistry",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "CSPM1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue",
+                      "customColumnWidthSetting": "20ch"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal"
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Servers1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "AppSrv1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "SQL1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "SQL Server on machines",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Open-source relational DBs",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Cosmos DB",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Storage1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Containers1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Key Vaults",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "AI",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "APIs",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Resource Manager",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "DNS1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "K8s (deprecated)",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Container Registry (deprecated)",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "lightBlue"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 2,
+                "labelSettings": [
+                  {
+                    "columnId": "CSPM1",
+                    "label": "Defender CSPM"
+                  },
+                  {
+                    "columnId": "Servers1",
+                    "label": "Servers"
+                  },
+                  {
+                    "columnId": "AppSrv1",
+                    "label": "App Services"
+                  },
+                  {
+                    "columnId": "SQL1",
+                    "label": "SQL"
+                  },
+                  {
+                    "columnId": "Storage1",
+                    "label": "Storage"
+                  },
+                  {
+                    "columnId": "Containers1",
+                    "label": "Containers"
+                  },
+                  {
+                    "columnId": "DNS1",
+                    "label": "DNS (deprecated)"
+                  }
+                ]
+              }
+            },
+            "conditionalVisibility": {
+              "parameterName": "relativeCoverage",
+              "comparison": "isEqualTo",
+              "value": "Yes"
+            },
+            "name": "Azure percentage"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resourcecontainers\n| where type == \"microsoft.resources/subscriptions\"\n| project subscriptionId, subscriptionName = name\n| join kind=inner (\n    securityresources\n    | where type =~ \"microsoft.security/pricings\"\n    | extend pricingTier = properties.pricingTier, subPlan = properties.subPlan\n    | extend planSet = pack(name, level = case(isnotempty(subPlan), subPlan, pricingTier))\n    | summarize defenderPlans = make_bag(planSet) by subscriptionId\n    | join kind=leftouter (\n        resources\n        | summarize \n            cloudPostureBillableCount = countif(type == \"microsoft.compute/virtualmachines\")\n                                      + countif(type == \"microsoft.compute/virtualmachinescalesets/virtualmachines\")\n                                      + countif(type == \"microsoft.classiccompute/virtualmachines\")\n                                      + countif(type == \"microsoft.storage/storageaccounts\")\n                                      + countif(type == \"microsoft.sql/servers\")\n                                      + countif(type == \"microsoft.sql/managedinstances\")\n                                      + countif(type == \"microsoft.dbforpostgresql/flexibleservers\")\n                                      + countif(type == \"microsoft.dbforpostgresql/servers\")\n                                      + countif(type == \"microsoft.dbformysql/flexibleservers\")\n                                      + countif(type == \"microsoft.dbformysql/servers\")\n                                      + countif(type == \"microsoft.dbformariadb/servers\")\n                                      + countif(type == \"microsoft.synapse/workspaces\"),\n            vmCount = countif(type == \"microsoft.compute/virtualmachines\") \n                    + countif(type == \"microsoft.hybridcompute/machines\")                             \n                    + countif(type == \"microsoft.compute/virtualmachinescalesets/virtualmachines\")\n                    + countif(type == \"microsoft.classiccompute/virtualmachines\"),\n            appServiceCount = countif(type == \"microsoft.web/sites\" and kind has \"app\"),\n            sqlServerCount = countif(type == \"microsoft.sql/servers\")\n                           + countif(type == \"microsoft.sql/managedinstances\"),\n            sqlVMCount = countif(type == \"microsoft.sqlvirtualmachine/sqlvirtualmachines\") \n                       + countif(type == \"microsoft.azurearcdata/sqlserverinstances\"),\n            openSourceDBCount = countif(type == \"microsoft.dbforpostgresql/servers\")\n                              + countif(type == \"microsoft.dbforpostgresql/flexibleservers\")\n                              + countif(type == \"microsoft.dbformysql/servers\")\n                              + countif(type == \"microsoft.dbformysql/flexibleservers\")\n                              + countif(type == \"microsoft.dbformariadb/servers\"),\n            cosmosCount = countif(type == \"microsoft.documentdb/databaseaccounts\"),\n            storageCount = countif(type == \"microsoft.storage/storageaccounts\"),\n            aksCount = countif(type == \"microsoft.containerservice/managedclusters\"),\n            acrCount = countif(type == \"microsoft.containerregistry/registries\"),\n            keyVaultCount = countif(type == \"microsoft.keyvault/vaults\"),\n            armCount = 1,\n            aiCount = countif(type == \"microsoft.cognitiveservices/accounts\"),\n            //        + countif(type == \"microsoft.aifoundry/projects\"),\n            //        + countif(type == \"microsoft.machinelearningservices/workspaces\"),\n            //        + countif(type == \"microsoft.search/searchservices\"),\n            apiManagementCount = countif(type == \"microsoft.apimanagement/service\")\n        by subscriptionId\n    ) on subscriptionId\n) on subscriptionId\n| extend\n    assetsDefended = \n\t    //iif(defenderPlans.CloudPosture != \"Free\", cloudPostureBillableCount, 0) +\n\t    iif(defenderPlans.VirtualMachines != \"Free\", vmCount, 0) +\n\t    iif(defenderPlans.AppServices != \"Free\", appServiceCount, 0) +\n\t    iif(defenderPlans.SqlServers != \"Free\", sqlServerCount, 0) +\n\t    iif(defenderPlans.SqlServerVirtualMachines != \"Free\", sqlVMCount, 0) +\n\t    iif(defenderPlans.OpenSourceRelationalDatabases != \"Free\", openSourceDBCount, 0) +\n\t    iif(defenderPlans.CosmosDbs != \"Free\", cosmosCount, 0) +\n\t    iif(defenderPlans.StorageAccounts != \"Free\", storageCount, 0) +\n\t    iif(defenderPlans.Containers != \"Free\", aksCount + acrCount, 0) +\n\t    iif(defenderPlans.KeyVaults != \"Free\", keyVaultCount, 0) +\n\t    iif(defenderPlans.Arm != \"Free\", armCount, 0) +\n\t    iif(defenderPlans.AI != \"Free\", aiCount, 0) +\n\t    iif(defenderPlans.Api != \"Free\", apiManagementCount, 0),\n\tassetsUNdefended = \n\t    //iif(defenderPlans.CloudPosture == \"Free\", cloudPostureBillableCount, 0) +\n\t    iif(defenderPlans.VirtualMachines == \"Free\", vmCount, 0) +\n\t    iif(defenderPlans.AppServices == \"Free\", appServiceCount, 0) +\n\t    iif(defenderPlans.SqlServers == \"Free\", sqlServerCount, 0) +\n\t    iif(defenderPlans.SqlServerVirtualMachines == \"Free\", sqlVMCount, 0) +\n\t    iif(defenderPlans.OpenSourceRelationalDatabases == \"Free\", openSourceDBCount, 0) +\n\t    iif(defenderPlans.CosmosDbs == \"Free\", cosmosCount, 0) +\n\t    iif(defenderPlans.StorageAccounts == \"Free\", storageCount, 0) +\n\t    iif(defenderPlans.Containers == \"Free\", aksCount + acrCount, 0) +\n\t    iif(defenderPlans.KeyVaults == \"Free\", keyVaultCount, 0) +\n\t    iif(defenderPlans.Arm == \"Free\", armCount, 0) +\n\t    iif(defenderPlans.AI == \"Free\", aiCount, 0) +\n\t    iif(defenderPlans.Api == \"Free\", apiManagementCount, 0)\n    | project subscriptionName, subscriptionId, \n    assetsDefended,\n    assetsUNdefended,\n    //CloudPosture = defenderPlans.CloudPosture,\n    //CSPMCount = cloudPostureBillableCount,\n    VirtualMachines = defenderPlans.VirtualMachines,\n    ServersCount = vmCount,\n    AppServices = defenderPlans.AppServices,\n    AppServiceCount = appServiceCount,\n    SqlServers = defenderPlans.SqlServers,\n    AzureSQLCount = sqlServerCount,\n    SqlServerVirtualMachines = defenderPlans.SqlServerVirtualMachines,\n    SQLVMCount = sqlVMCount,\n    OpenSourceRelationalDatabases = defenderPlans.OpenSourceRelationalDatabases,\n    OSSdbCount = openSourceDBCount,\n    CosmosDB = defenderPlans.CosmosDbs,\n    CosmosDatabaseCount = cosmosCount,\n    StorageAccounts = defenderPlans.StorageAccounts,\n    StorageCount = storageCount,\n    Containers = defenderPlans.Containers,\n    AKSCount = aksCount,\n    ACRCount = acrCount,\n    KeyVaults = defenderPlans.KeyVaults,\n    KeyVaultCount = keyVaultCount,\n    AI = defenderPlans.AI,\n    AICount = aiCount,\n    API = defenderPlans.Api,\n    APIMCount = apiManagementCount,\n    Arm = defenderPlans.Arm,\n    ArmCount = armCount,\n    DNS = defenderPlans.Dns,\n    KubernetesService = defenderPlans.KubernetesService,\n    ContainerRegistry = defenderPlans.ContainerRegistry\n",
+              "size": 3,
+              "title": "Absolute coverage across Azure subscriptions",
+              "exportFieldName": "subscriptionId",
+              "exportParameterName": "subId",
+              "exportDefaultValue": "default",
+              "showExportToExcel": true,
+              "exportToExcelOptions": "all",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "subscriptionName",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "subscriptionId",
+                    "formatter": 15,
+                    "formatOptions": {
+                      "linkTarget": null,
+                      "showIcon": true,
+                      "customColumnWidthSetting": "50ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "assetsDefended",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": null,
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "assetsUNdefended",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "0",
+                          "representation": "green",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": ">",
+                          "thresholdValue": "0",
+                          "representation": "redBright",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "lightBlue",
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "CloudPosture",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "20ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "VirtualMachines",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "P1",
+                          "representation": "lightBlue",
+                          "text": "Plan 1 on"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "P2",
+                          "representation": "lightBlue",
+                          "text": "Plan 2 on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "12.5ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "AppServices",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "16ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "SqlServers",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "10ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "SqlServerVirtualMachines",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "26ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "OpenSourceRelationalDatabases",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "29ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "CosmosDB",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "15.5ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "StorageAccounts",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "DefenderForStorageV2",
+                          "representation": "lightBlue",
+                          "text": "on (Defender for Storage V2)"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "PerStorageAccount",
+                          "representation": "lightBlue",
+                          "text": "on (per storage account)"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "PerTransaction",
+                          "representation": "lightBlue",
+                          "text": "on (per transaction)"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "27ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "Containers",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "15ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "KeyVaults",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "PerKeyVault",
+                          "representation": "lightBlue",
+                          "text": "on (per resource)"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "PerTransaction",
+                          "representation": "lightBlue",
+                          "text": "on (per transaction)"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "17ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "AI",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "AICount",
+                    "formatter": 0,
+                    "tooltipFormat": {
+                      "tooltip": "AICount"
+                    }
+                  },
+                  {
+                    "columnMatch": "API",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Free",
+                          "representation": "redBright",
+                          "text": "off"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "lightBlue",
+                          "text": "on"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "APIMCount",
+                    "formatter": 0,
+                    "tooltipFormat": {
+                      "tooltip": "APIMCount"
+                    }
+                  },
+                  {
+                    "columnMatch": "Arm",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "PerSubscription",
+                          "representation": "lightBlue",
+                          "text": "on (per subscription)"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "PerApiCall",
+                          "representation": "lightBlue",
+                          "text": "on (per API call)"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "21ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "ArmCount",
+                    "formatter": 0,
+                    "tooltipFormat": {
+                      "tooltip": "ArmCount"
+                    }
+                  },
+                  {
+                    "columnMatch": "DNS",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "blueDark",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "10.7ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "KubernetesService",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "blueDark",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "19.7ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "ContainerRegistry",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Standard",
+                          "representation": "lightBlue",
+                          "text": "on"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "blueDark",
+                          "text": "off"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "PolicyPricingWithBundlesBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "32ch"
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "subscriptionId",
+                    "label": "Subscription Name"
+                  },
+                  {
+                    "columnId": "assetsDefended",
+                    "label": "Assets Defended"
+                  },
+                  {
+                    "columnId": "assetsUNdefended",
+                    "label": "Assets UNdefended"
+                  },
+                  {
+                    "columnId": "VirtualMachines",
+                    "label": "Servers"
+                  },
+                  {
+                    "columnId": "AppServices",
+                    "label": "App Services"
+                  },
+                  {
+                    "columnId": "SqlServers",
+                    "label": "SQL"
+                  },
+                  {
+                    "columnId": "SqlServerVirtualMachines",
+                    "label": "SQL Server on machines"
+                  },
+                  {
+                    "columnId": "OpenSourceRelationalDatabases",
+                    "label": "Open-source relational DBs"
+                  },
+                  {
+                    "columnId": "CosmosDB",
+                    "label": "Cosmos DB"
+                  },
+                  {
+                    "columnId": "CosmosDatabaseCount",
+                    "label": "CosmosDBCount"
+                  },
+                  {
+                    "columnId": "StorageAccounts",
+                    "label": "Storage"
+                  },
+                  {
+                    "columnId": "Containers",
+                    "label": "Containers"
+                  },
+                  {
+                    "columnId": "KeyVaults",
+                    "label": "Key Vaults"
+                  },
+                  {
+                    "columnId": "AI",
+                    "label": "AI Services"
+                  },
+                  {
+                    "columnId": "API",
+                    "label": "APIs"
+                  },
+                  {
+                    "columnId": "Arm",
+                    "label": "Resource Manager"
+                  },
+                  {
+                    "columnId": "ArmCount",
+                    "label": "RMCount"
+                  },
+                  {
+                    "columnId": "DNS",
+                    "label": "DNS (deprecated)"
+                  },
+                  {
+                    "columnId": "KubernetesService",
+                    "label": "K8s (deprecated)"
+                  },
+                  {
+                    "columnId": "ContainerRegistry",
+                    "label": "Container Registry (deprecated)"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibility": {
+              "parameterName": "absoluteCoverage",
+              "comparison": "isEqualTo",
+              "value": "Yes"
+            },
+            "name": "queryAzure"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n| where subscriptionId == '{subId}'\r\n| extend Category = case(\r\n    type in~ (\"microsoft.compute/virtualmachines\", \r\n              \"microsoft.compute/virtualmachinescalesets/virtualmachines\", \r\n              \"microsoft.classiccompute/virtualmachines\", \r\n              \"microsoft.hybridcompute/machines\"), \"VirtualMachines\",\r\n    type in~ (\"microsoft.storage/storageaccounts\"), \"StorageAccounts\",\r\n    type in~ (\"microsoft.sql/servers\", \"microsoft.sql/managedinstances\"), \"SqlServers\",\r\n    type in~ (\"microsoft.sqlvirtualmachine/sqlvirtualmachines\", \"microsoft.azurearcdata/sqlserverinstances\"), \"SqlServerVirtualMachines\",\r\n    type in~ (\"microsoft.dbforpostgresql/servers\", \"microsoft.dbforpostgresql/flexibleservers\",\r\n              \"microsoft.dbformysql/servers\", \"microsoft.dbformysql/flexibleservers\",\r\n              \"microsoft.dbformariadb/servers\"), \"OpenSourceRelationalDatabases\",\r\n    type in~ (\"microsoft.documentdb/databaseaccounts\"), \"CosmosDbs\",\r\n    type in~ (\"microsoft.containerservice/managedclusters\", \r\n              \"microsoft.containerregistry/registries\"), \"Containers\",\r\n    type in~ (\"microsoft.keyvault/vaults\"), \"KeyVaults\",\r\n    type in~ (\"microsoft.cognitiveservices/accounts\"), \"AI\",\r\n    type in~ (\"microsoft.apimanagement/service\"), \"Api\",\r\n    type in~ (\"microsoft.web/sites\"), \"AppServices\",\r\n    \"Other\"\r\n)\r\n| where Category != \"Other\"\r\n| join kind=leftouter (\r\n    securityresources\r\n    | where type =~ \"microsoft.security/pricings\"\r\n    | extend DefenderPlan = name, tier = tostring(properties.pricingTier)\r\n    | project DefenderPlan, tier, subscriptionId\r\n) on subscriptionId\r\n| extend RawTier = case(Category == DefenderPlan, tier, \"\")\r\n| where not(type == \"microsoft.web/sites\" and not(kind has \"app\"))\r\n| summarize RawTier = max(RawTier) by Category, name, type, location, subscriptionId, resourceGroup, kind\r\n| extend DefenderStatus = case(\r\n    RawTier == \"Free\", \"OFF\",\r\n    RawTier != \"\" and RawTier != \"Free\", \"ON\",\r\n    \"Not Enabled\"\r\n)\r\n| project Category, DefenderStatus, name, type, location, subscriptionId, resourceGroup, kind\r\n| order by Category asc\r\n",
+              "size": 2,
+              "noDataMessage": "Choose subscription above to see asset details!",
+              "showExportToExcel": true,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "DefenderStatus",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "OFF",
+                          "representation": "redBright",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "lightBlue",
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "CSPM",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "OFF",
+                          "representation": "redBright",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "ON",
+                          "representation": "lightBlue",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "lightBlue",
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "filter": true,
+                "sortBy": [
+                  {
+                    "itemKey": "type",
+                    "sortOrder": 1
+                  }
+                ]
+              },
+              "sortBy": [
+                {
+                  "itemKey": "type",
+                  "sortOrder": 1
+                }
+              ]
+            },
+            "name": "query - 9"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "securityresources\n| where type =~ \"microsoft.security/pricings\" and name =~ \"CloudPosture\"\n| extend pricingTier = properties.pricingTier\n| where pricingTier == \"Standard\"\n| mv-expand extensionSettings = properties.extensions\n| extend planSet = pack (tostring(extensionSettings.name), tostring(extensionSettings.isEnabled))\n| summarize extensions = make_bag(planSet) by subscriptionId\n| project subscriptionId,\n    AgentlessVmScanning = extensions.AgentlessVmScanning,\n    AgentlessDiscoveryForKubernetes = extensions.AgentlessDiscoveryForKubernetes,\n    ContainerRegistriesVulnerabilityAssessments = extensions.ContainerRegistriesVulnerabilityAssessments,\n    SensitiveDataDiscovery = extensions.SensitiveDataDiscovery,\n    EntraPermissionsManagement = extensions.EntraPermissionsManagement",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for subscriptions with Defender CSPM enabled",
+              "noDataMessage": "No subscription found with Defender CSPM enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "subscriptionId",
+                    "formatter": 15,
+                    "formatOptions": {
+                      "linkTarget": null,
+                      "showIcon": true,
+                      "customColumnWidthSetting": "50ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "AgentlessVmScanning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "linkIsContextBlade": false,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defendersPlan",
+                            "source": "static",
+                            "value": "Defender CSPM"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "38.5ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "AgentlessDiscoveryForKubernetes",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defendersPlan",
+                            "source": "static",
+                            "value": "Defender CSPM"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "38.5ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "ContainerRegistriesVulnerabilityAssessments",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defendersPlan",
+                            "source": "static",
+                            "value": "DefenderCSPM"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "44.5ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "SensitiveDataDiscovery",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defendersPlan",
+                            "source": "static",
+                            "value": "Defender CSPM"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "32.5ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "EntraPermissionsManagement",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defenderPlan",
+                            "source": "static",
+                            "value": "Defender CSPM"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "subscriptionId",
+                    "label": "Subscription Name"
+                  },
+                  {
+                    "columnId": "AgentlessVmScanning",
+                    "label": "Agentless scanning for machines"
+                  },
+                  {
+                    "columnId": "AgentlessDiscoveryForKubernetes",
+                    "label": "Agentless discovery for Kubernetes"
+                  },
+                  {
+                    "columnId": "ContainerRegistriesVulnerabilityAssessments",
+                    "label": "Container registries vulnerability assessments"
+                  },
+                  {
+                    "columnId": "SensitiveDataDiscovery",
+                    "label": "Sensitive data discovery"
+                  },
+                  {
+                    "columnId": "EntraPermissionsManagement",
+                    "label": "CIEM integration"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName",
+                "comparison": "isEqualTo",
+                "value": "DCSPM"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryAzureDetailedCSPM"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "securityresources\n| where type =~ \"microsoft.security/pricings\" and name =~ \"VirtualMachines\"\n| extend pricingTier = properties.pricingTier, subPlan = properties.subPlan\n| where pricingTier == \"Standard\" and subPlan == \"P2\"\n| mv-expand extensionSettings = properties.extensions\n| extend planSet = pack (tostring(extensionSettings.name), tostring(extensionSettings.isEnabled))\n| summarize extensions = make_bag(planSet) by subscriptionId\n| project subscriptionId,\n    AgentlessVmScanning = extensions.AgentlessVmScanning",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for subscriptions with Defender for Servers Plan 2 enabled",
+              "noDataMessage": "No subscription found with Defender for Servers Plan 2 enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "subscriptionId",
+                    "formatter": 15,
+                    "formatOptions": {
+                      "linkTarget": null,
+                      "showIcon": true,
+                      "customColumnWidthSetting": "50ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "AgentlessVmScanning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defendersPlan",
+                            "source": "static",
+                            "value": "Servers"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "38.5ch"
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "subscriptionId",
+                    "label": "Subscription Name"
+                  },
+                  {
+                    "columnId": "AgentlessVmScanning",
+                    "label": "Agentless scanning for machines"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName",
+                "comparison": "isEqualTo",
+                "value": "Servers"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryAzureDetailedServers"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "securityresources\n| where type =~ \"microsoft.security/pricings\" and name =~ \"Containers\"\n| extend pricingTier = properties.pricingTier\n| where pricingTier == \"Standard\"\n| mv-expand extensionSettings = properties.extensions\n| extend planSet = pack (tostring(extensionSettings.name), tostring(extensionSettings.isEnabled))\n| summarize extensions = make_bag(planSet) by subscriptionId\n| project subscriptionId,\n    AgentlessDiscoveryForKubernetes = extensions.AgentlessDiscoveryForKubernetes,\n    ContainerRegistriesVulnerabilityAssessments = extensions.ContainerRegistriesVulnerabilityAssessments",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for subscriptions with Defender for Containers enabled",
+              "noDataMessage": "No subscription found with Defender for Containers enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "subscriptionId",
+                    "formatter": 15,
+                    "formatOptions": {
+                      "linkTarget": null,
+                      "showIcon": true,
+                      "customColumnWidthSetting": "50ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "AgentlessDiscoveryForKubernetes",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "linkIsContextBlade": false,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defendersPlan",
+                            "source": "static",
+                            "value": "Containers"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "38.5ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "ContainerRegistriesVulnerabilityAssessments",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defendersPlan",
+                            "source": "static",
+                            "value": "Containers"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "44.5ch"
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "subscriptionId",
+                    "label": "Subscription Name"
+                  },
+                  {
+                    "columnId": "AgentlessDiscoveryForKubernetes",
+                    "label": "Agentless discovery for Kubernetes"
+                  },
+                  {
+                    "columnId": "ContainerRegistriesVulnerabilityAssessments",
+                    "label": "Container registries vulnerability assessments"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName",
+                "comparison": "isEqualTo",
+                "value": "Containers"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryAzureDetailedContainers"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "securityresources\n| where type =~ \"microsoft.security/pricings\" and name =~ \"StorageAccounts\"\n| extend subPlan = properties.subPlan\n| where subPlan == \"DefenderForStorageV2\"\n| mv-expand extensionSettings = properties.extensions\n| extend planSet = pack (tostring(extensionSettings.name), tostring(extensionSettings.isEnabled))\n| summarize extensions = make_bag(planSet) by subscriptionId\n| project subscriptionId,\n    OnUploadMalwareScanning = extensions.OnUploadMalwareScanning,\n    SensitiveDataDiscovery = extensions.SensitiveDataDiscovery\n    ",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for subscriptions with Defender for Storage V2 enabled",
+              "noDataMessage": "No subscription found with Defender for Storage V2 enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "subscriptionId",
+                    "formatter": 15,
+                    "formatOptions": {
+                      "linkTarget": null,
+                      "showIcon": true,
+                      "customColumnWidthSetting": "50ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "OnUploadMalwareScanning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defendersPlan",
+                            "source": "static",
+                            "value": "Storage"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "24.5ch"
+                    }
+                  },
+                  {
+                    "columnMatch": "SensitiveDataDiscovery",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "subscriptionId",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "lightBlue",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "DataCollectionBladeV2",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "subscriptionId",
+                            "source": "column",
+                            "value": "subscriptionId"
+                          },
+                          {
+                            "name": "defendersPlan",
+                            "source": "static",
+                            "value": "Storage"
+                          }
+                        ]
+                      },
+                      "customColumnWidthSetting": "32.5ch"
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "subscriptionId",
+                    "label": "Subscription Name"
+                  },
+                  {
+                    "columnId": "OnUploadMalwareScanning",
+                    "label": "Malware scanning"
+                  },
+                  {
+                    "columnId": "SensitiveDataDiscovery",
+                    "label": "Sensitive data discovery"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName",
+                "comparison": "isEqualTo",
+                "value": "Storage"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryAzureDetailedStorage"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "environment",
+        "comparison": "isEqualTo",
+        "value": "Azure"
+      },
+      "name": "Azure"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 1,
+            "content": {
+              "json": "## Defender for Cloud coverage by AWS connectors"
+            },
+            "name": "headingAWS"
+          },
+          {
+            "type": 1,
+            "content": {
+              "json": "This section provides an overview of all native AWS connectors in your subscriptions, including coverage for Defender for Cloud capabilities. The ***Relative coverage across AWS connectors*** table shows the percentage of connectors with a particular plan enabled. In the ***Absolute coverage across AWS connectors*** table, you can click any status value from the table to be automatically redirected to the connector's configuration blade on which you can enable additional plans."
+            },
+            "conditionalVisibility": {
+              "parameterName": "info",
+              "comparison": "isEqualTo",
+              "value": "On"
+            },
+            "name": "infoAWS"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\" and properties.environmentName == \"AWS\"\n| extend offerings = properties.offerings\n| project id,\n    CSPM = case(offerings has \"DefenderCspmAws\",\"on\",\"off\"),\n    Servers = case(\n        offerings has \"DefenderForServersAws\" and offerings has \"P1\",\"Plan 1 on\",\n        offerings has \"DefenderForServersAws\" and offerings has \"P2\", \"Plan 2 on\",\n        \"off\"\n    ),\n    Databases = case (offerings has \"DefenderForDatabasesAws\",\"on\",\"off\"),\n    Containers = case(offerings has \"DefenderForContainersAws\",\"on\",\"off\")\n| summarize totalConnectors = count(), CSPM = countif(CSPM == \"on\"), Servers = countif(Servers has \"on\"), Databases = countif(Databases == \"on\"), Containers = countif(Containers == \"on\")",
+              "size": 3,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "rowLimit": 2
+              }
+            },
+            "customWidth": "10",
+            "conditionalVisibility": {
+              "parameterName": "blank",
+              "comparison": "isNotEqualTo"
+            },
+            "name": "AWS numbers"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71404b\",\"mergeType\":\"table\",\"leftTable\":\"AWS numbers\"}],\"projectRename\":[{\"originalName\":\"[Added column]\",\"mergedName\":\"CSPM1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"CSPM\\\"]/[\\\"totalConnectors\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Servers1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"Servers\\\"]/[\\\"totalConnectors\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Databases1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"Databases\\\"]/[\\\"totalConnectors\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Containers1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"Containers\\\"]/[\\\"totalConnectors\\\"]*100\"}}]},{\"originalName\":\"[AWS numbers].totalConnectors\",\"mergedName\":\"totalConnectors\",\"fromId\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71404b\"},{\"originalName\":\"[AWS numbers].CSPM\",\"mergedName\":\"CSPM\",\"fromId\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71404b\"},{\"originalName\":\"[AWS numbers].Servers\",\"mergedName\":\"Servers\",\"fromId\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71404b\"},{\"originalName\":\"[AWS numbers].Containers\",\"mergedName\":\"Containers\",\"fromId\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71404b\"},{\"originalName\":\"[AWS numbers].Databases\",\"mergedName\":\"Databases\",\"fromId\":\"unknown\"}]}",
+              "size": 3,
+              "title": "Relative coverage across AWS connectors",
+              "noDataMessage": "No AWS connectors found in your selected subscriptions.",
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "CSPM1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "yellow"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Servers1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "yellow"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Databases1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "yellow"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Containers1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "yellow"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "totalConnectors",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "CSPM",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Servers",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Containers",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Databases",
+                    "formatter": 5
+                  }
+                ],
+                "rowLimit": 2,
+                "labelSettings": [
+                  {
+                    "columnId": "CSPM1",
+                    "label": "Defender CSPM"
+                  },
+                  {
+                    "columnId": "Servers1",
+                    "label": "Defender for Servers"
+                  },
+                  {
+                    "columnId": "Databases1",
+                    "label": "Defender for Databases"
+                  },
+                  {
+                    "columnId": "Containers1",
+                    "label": "Defender for Containers"
+                  }
+                ]
+              }
+            },
+            "conditionalVisibility": {
+              "parameterName": "relativeCoverage",
+              "comparison": "isEqualTo",
+              "value": "Yes"
+            },
+            "showPin": false,
+            "name": "AWS percentage"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\" and properties.environmentName == \"AWS\"\n| extend offerings = properties.offerings\n| project id,\n    CSPM = case(offerings has \"DefenderCspmAws\",\"on\",\"off\"),\n    Servers = case(\n        offerings has \"DefenderForServersAws\" and offerings has \"P1\",\"Plan 1 on\",\n        offerings has \"DefenderForServersAws\" and offerings has \"P2\", \"Plan 2 on\",\n        \"off\"\n    ),\n    Databases = case(offerings has \"DefenderForDatabasesAws\",\"on\",\"off\"),\n    Containers = case(offerings has \"DefenderForContainersAws\",\"on\",\"off\")",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Absolute coverage across AWS connectors",
+              "noDataMessage": "No AWS connectors found in your selected subscriptions.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "CSPM",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "on",
+                          "representation": "yellow",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "orange",
+                          "text": "{0}{1}"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Servers",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Plan 1 on",
+                          "representation": "yellow",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Plan 2 on",
+                          "representation": "yellow",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "orange",
+                          "text": "{0}{1}"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Databases",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "on",
+                          "representation": "yellow",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "orange",
+                          "text": "{0}{1}"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Containers",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "on",
+                          "representation": "yellow",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "orange",
+                          "text": "{0}{1}"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "CSPM",
+                    "label": "Defender CSPM"
+                  },
+                  {
+                    "columnId": "Servers",
+                    "label": "Defender for Servers"
+                  },
+                  {
+                    "columnId": "Databases",
+                    "label": "Defender for Databases"
+                  },
+                  {
+                    "columnId": "Containers",
+                    "label": "Defender for Containers"
+                  }
+                ]
+              }
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "environment",
+                "comparison": "isEqualTo",
+                "value": "AWS"
+              },
+              {
+                "parameterName": "absoluteCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryAWS"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\"\n| where properties[\"environmentName\"]=='AWS'\n| mv-expand offerings = todynamic(properties[\"offerings\"])\n| where offerings[\"offeringType\"] == \"DefenderCspmAws\"\n| mv-expand extension = offerings\n| extend extensionName = tostring(bag_keys(extension)[0])\n| extend isEnabled = extension[extensionName][\"enabled\"]\n| extend isEnabled = iff(isnull(isEnabled), iff(extensionName == \"ciem\", true, isEnabled) , isEnabled)\n| where isnotnull(isEnabled)\n| extend planSet = pack (tostring(extensionName), tostring(isEnabled))\n| summarize extensions = make_bag(planSet) by ['id']\n| project ['id'],\n    mdcContainersAgentlessDiscoveryK8s = iff(isnotnull(extensions.mdcContainersAgentlessDiscoveryK8s), extensions.mdcContainersAgentlessDiscoveryK8s, \"false\"),\n    mdcContainersImageAssessment = iff(isnotnull(extensions.mdcContainersImageAssessment), extensions.mdcContainersImageAssessment, \"false\"),\n    dataSensitivityDiscovery =  iff(isnotnull(extensions.dataSensitivityDiscovery), extensions.dataSensitivityDiscovery, \"false\"),\n    vmScanners =  iff(isnotnull(extensions.vmScanners), extensions.vmScanners, \"false\"),\n    databasesDspm = iff(isnotnull(extensions.databasesDspm), extensions.databasesDspm, \"false\"),\n    ciem =  iff(isnotnull(extensions.ciem), extensions.ciem, \"false\")",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for AWS connectors with Defender CSPM enabled",
+              "noDataMessage": "No AWS connector found with Defender CSPM enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "mdcContainersAgentlessDiscoveryK8s",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "mdcContainersImageAssessment",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "dataSensitivityDiscovery",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "vmScanners",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "databasesDspm",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "linkIsContextBlade": false,
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "ciem",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "mdcContainersAgentlessDiscoveryK8s",
+                    "label": "Agentless discovery for Kubernetes"
+                  },
+                  {
+                    "columnId": "mdcContainersImageAssessment",
+                    "label": "Container image scanning"
+                  },
+                  {
+                    "columnId": "dataSensitivityDiscovery",
+                    "label": "Sensitive data discovery"
+                  },
+                  {
+                    "columnId": "vmScanners",
+                    "label": "Agentless scanning for machines"
+                  },
+                  {
+                    "columnId": "databasesDspm",
+                    "label": "Data-aware security posture management"
+                  },
+                  {
+                    "columnId": "ciem",
+                    "label": "CIEM integration"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName_mc",
+                "comparison": "isEqualTo",
+                "value": "DCSPM"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryAwsDetailedCSPM"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\"\n| where properties[\"environmentName\"]=='AWS'\n| mv-expand offerings = todynamic(properties[\"offerings\"])\n| where offerings[\"offeringType\"] == \"DefenderForDatabasesAws\"\n| mv-expand extension = offerings\n| extend extensionName = tostring(bag_keys(extension)[0])\n| extend isEnabled = extension[extensionName][\"enabled\"]\n| where isnotnull(isEnabled)\n| extend planSet = pack (tostring(extensionName), tostring(isEnabled))\n| summarize extensions = make_bag(planSet) by ['id']\n| project ['id'],\n    arcAutoProvisioning = extensions.arcAutoProvisioning,\n    databasesDspm = extensions.databasesDspm",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for AWS connectors with Defender for Databases enabled",
+              "noDataMessage": "No AWS connector found with Defender for Databases enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "arcAutoProvisioning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "databasesDspm",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "arcAutoProvisioning",
+                    "label": "Azure Arc auto provisioning"
+                  },
+                  {
+                    "columnId": "databasesDspm",
+                    "label": "Data-aware security posture management"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName_mc",
+                "comparison": "isEqualTo",
+                "value": "Databases"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryAwsDetailedDatabases"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\"\n| where properties[\"environmentName\"]=='AWS'\n| mv-expand offerings = todynamic(properties[\"offerings\"])\n| where offerings[\"offeringType\"] == \"DefenderForServersAws\"\n| mv-expand extension = offerings\n| extend extensionName = tostring(bag_keys(extension)[0])\n| extend isEnabled = extension[extensionName][\"enabled\"]\n| where isnotnull(isEnabled)\n| extend planSet = pack (tostring(extensionName), tostring(isEnabled))\n| summarize extensions = make_bag(planSet) by ['id']\n| project ['id'],\n    arcAutoProvisioning = extensions.arcAutoProvisioning,\n    mdeAutoProvisioning = extensions.mdeAutoProvisioning,\n    vaAutoProvisioning = extensions.vaAutoProvisioning,\n    vmScanners = iff(isnotnull(extensions.vmScanners), extensions.vmScanners, \"notapplicable\")",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for AWS connectors with Defender for Servers enabled",
+              "noDataMessage": "No AWS connector found with Defender for Servers enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "arcAutoProvisioning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "mdeAutoProvisioning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "vaAutoProvisioning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "vmScanners",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "notapplicable",
+                          "representation": "gray",
+                          "text": "Not applicable (Plan 1 only)"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "arcAutoProvisioning",
+                    "label": "Azure Arc auto provisioining"
+                  },
+                  {
+                    "columnId": "mdeAutoProvisioning",
+                    "label": "Defender for Endpoint integration"
+                  },
+                  {
+                    "columnId": "vaAutoProvisioning",
+                    "label": "Defender Vulnerability Management integration"
+                  },
+                  {
+                    "columnId": "vmScanners",
+                    "label": "Agentless scanning for machines"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName_mc",
+                "comparison": "isEqualTo",
+                "value": "Servers"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryAwsDetailedServers"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\"\n| where properties[\"environmentName\"]=='AWS'\n| mv-expand offerings = todynamic(properties[\"offerings\"])\n| where offerings[\"offeringType\"] == \"DefenderForContainersAws\"\n| mv-expand extension = offerings\n| extend extensionName = tostring(bag_keys(extension)[0])\n| extend isEnabled = extension[extensionName][\"enabled\"]\n| where isnotnull(isEnabled)\n| extend planSet = pack (tostring(extensionName), tostring(isEnabled))\n| summarize extensions = make_bag(planSet) by ['id']\n| project ['id'],\n    mdcContainersAgentlessDiscoveryK8s = extensions.mdcContainersAgentlessDiscoveryK8s,\n    mdcContainersImageAssessment = extensions.mdcContainersImageAssessment",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for AWS connectors with Defender for Containers enabled",
+              "noDataMessage": "No AWS connector found with Defender for Containers enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "mdcContainersAgentlessDiscoveryK8s",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "mdcContainersImageAssessment",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkColumn": "id",
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "yellow",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "AwsAccountSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "mdcContainersAgentlessDiscoveryK8s",
+                    "label": "Agentless discovery for Kubernetes"
+                  },
+                  {
+                    "columnId": "mdcContainersImageAssessment",
+                    "label": "Container image scanning"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName_mc",
+                "comparison": "isEqualTo",
+                "value": "Containers"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryAwsDetailedContainers"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "environment",
+        "comparison": "isEqualTo",
+        "value": "AWS"
+      },
+      "name": "AWS"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 1,
+            "content": {
+              "json": "## Defender for Cloud coverage by GCP connectors"
+            },
+            "name": "headingGCP"
+          },
+          {
+            "type": 1,
+            "content": {
+              "json": "This section provides an overview of all native GCP connectors in your subscriptions, including coverage for Defender for Cloud capabilities. The ***Relative coverage across GCP connectors*** table shows the percentage of connectors with a particular plan enabled. In the ***Absolute coverage across GCP connectors*** table, you can click any status value from the table to be automatically redirected to the connector's configuration blade on which you can enable additional plans."
+            },
+            "conditionalVisibility": {
+              "parameterName": "info",
+              "comparison": "isEqualTo",
+              "value": "On"
+            },
+            "name": "infoGCP"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\" and properties.environmentName == \"GCP\"\n| extend offerings = properties.offerings\n| project id,\n    CSPM = case(offerings has \"DefenderCspmGcp\",\"on\",\"off\"),\n    Servers = case(\n        offerings has \"DefenderForServersGcp\" and offerings has \"P1\",\"Plan 1 on\",\n        offerings has \"DefenderForServersGcp\" and offerings has \"P2\", \"Plan 2 on\",\n        \"off\"\n    ),\n    Databases = case(offerings has \"DefenderForDatabasesGcp\",\"on\",\"off\"),\n    Containers = case(offerings has \"DefenderForContainersGcp\",\"on\",\"off\")\n| summarize totalConnectors = count(), CSPM = countif(CSPM == \"on\"), Servers = countif(Servers has \"on\"), Databases = countif(Databases == \"on\"), Containers = countif(Containers == \"on\")",
+              "size": 3,
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ]
+            },
+            "customWidth": "10",
+            "conditionalVisibility": {
+              "parameterName": "blank",
+              "comparison": "isNotEqualTo"
+            },
+            "name": "GCP numbers"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71406b\",\"mergeType\":\"table\",\"leftTable\":\"GCP numbers\"}],\"projectRename\":[{\"originalName\":\"[GCP numbers].totalConnectors\",\"mergedName\":\"totalConnectors\",\"fromId\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71406b\"},{\"originalName\":\"[GCP numbers].CSPM\",\"mergedName\":\"CSPM\",\"fromId\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71406b\"},{\"originalName\":\"[GCP numbers].Servers\",\"mergedName\":\"Servers\",\"fromId\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71406b\"},{\"originalName\":\"[GCP numbers].Containers\",\"mergedName\":\"Containers\",\"fromId\":\"f0f7f6bc-6bf8-4dac-bbb9-f8458a71406b\"},{\"originalName\":\"[Added column]\",\"mergedName\":\"CSPM1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"CSPM\\\"]/[\\\"totalConnectors\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Servers1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"Servers\\\"]/[\\\"totalConnectors\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Databases1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"Databases\\\"]/[\\\"totalConnectors\\\"]*100\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"Containers1\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"Containers\\\"]/[\\\"totalConnectors\\\"]*100\"}}]},{\"originalName\":\"[GCP numbers].Databases\",\"mergedName\":\"Databases\",\"fromId\":\"unknown\"},{\"originalName\":\"[GCP numbers].id\",\"mergedName\":\"id\",\"fromId\":\"unknown\"}]}",
+              "size": 3,
+              "title": "Relative coverage across GCP connectors",
+              "noDataMessage": "No GCP connectors found in your selected subscriptions.",
+              "queryType": 7,
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "totalConnectors",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "CSPM",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Servers",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Containers",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "CSPM1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "turquoise"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Servers1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "turquoise"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Databases1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "turquoise"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Containers1",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "max": 100,
+                      "palette": "turquoise"
+                    },
+                    "numberFormat": {
+                      "unit": 1,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Databases",
+                    "formatter": 5
+                  }
+                ],
+                "rowLimit": 2,
+                "labelSettings": [
+                  {
+                    "columnId": "CSPM1",
+                    "label": "Defender CSPM"
+                  },
+                  {
+                    "columnId": "Servers1",
+                    "label": "Defender for Servers"
+                  },
+                  {
+                    "columnId": "Databases1",
+                    "label": "Defender for Databases"
+                  },
+                  {
+                    "columnId": "Containers1",
+                    "label": "Defender for Containers"
+                  }
+                ]
+              }
+            },
+            "conditionalVisibility": {
+              "parameterName": "relativeCoverage",
+              "comparison": "isEqualTo",
+              "value": "Yes"
+            },
+            "showPin": false,
+            "name": "GCP percentage"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\" and properties.environmentName == \"GCP\"\n| extend offerings = properties.offerings\n| project id,\n    CSPM = case(offerings has \"DefenderCspmGcp\",\"on\",\"off\"),\n    Servers = case(\n        offerings has \"DefenderForServersGcp\" and offerings has \"P1\",\"Plan 1 on\",\n        offerings has \"DefenderForServersGcp\" and offerings has \"P2\", \"Plan 2 on\",\n        \"off\"\n    ),\n    Databases = case(offerings has \"DefenderForDatabasesGcp\",\"on\",\"off\"),\n    Containers = case(offerings has \"DefenderForContainersGcp\",\"on\",\"off\")",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Absolute coverage across GCP connectors",
+              "noDataMessage": "No GCP connectors found in your selected subscriptions.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "CSPM",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "on",
+                          "representation": "turquoise",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "grayBlue",
+                          "text": "{0}{1}"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Servers",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Plan 1 on",
+                          "representation": "turquoise",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "Plan 2 on",
+                          "representation": "turquoise",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "grayBlue",
+                          "text": "{0}{1}"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Databases",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "on",
+                          "representation": "turquoise",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "grayBlue",
+                          "text": "{0}{1}"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "Containers",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "on",
+                          "representation": "turquoise",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "grayBlue",
+                          "text": "{0}{1}"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "CSPM",
+                    "label": "Defender CSPM"
+                  },
+                  {
+                    "columnId": "Servers",
+                    "label": "Defender for Servers"
+                  },
+                  {
+                    "columnId": "Databases",
+                    "label": "Defender for Databases"
+                  },
+                  {
+                    "columnId": "Containers",
+                    "label": "Defender for Containers"
+                  }
+                ]
+              }
+            },
+            "conditionalVisibility": {
+              "parameterName": "absoluteCoverage",
+              "comparison": "isEqualTo",
+              "value": "Yes"
+            },
+            "name": "queryGCP"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\"\n| where properties[\"environmentName\"]=='GCP'\n| mv-expand offerings = todynamic(properties[\"offerings\"])\n| where offerings[\"offeringType\"] == \"DefenderCspmGcp\"\n| mv-expand extension = offerings\n| extend extensionName = tostring(bag_keys(extension)[0])\n| extend isEnabled = extension[extensionName][\"enabled\"]\n| extend isEnabled = iff(isnull(isEnabled), iff(extensionName == \"ciem\", true, isEnabled) , isEnabled)\n| where isnotnull(isEnabled)\n| extend planSet = pack (tostring(extensionName), tostring(isEnabled))\n| summarize extensions = make_bag(planSet) by ['id']\n| project ['id'],\n    mdcContainersAgentlessDiscoveryK8s = extensions.mdcContainersAgentlessDiscoveryK8s,\n    mdcContainersImageAssessment = extensions.mdcContainersImageAssessment,\n    dataSensitivityDiscovery =  extensions.dataSensitivityDiscovery,\n    vmScanners =  extensions.vmScanners,\n    ciem =  iff(isnotnull(extensions.ciem), extensions.ciem, \"false\")",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for GCP connectors with Defender CSPM enabled",
+              "noDataMessage": "No GCP connector found with Defender CSPM enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "mdcContainersAgentlessDiscoveryK8s",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "mdcContainersImageAssessment",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "dataSensitivityDiscovery",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "vmScanners",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "ciem",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "True",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "mdcContainersAgentlessDiscoveryK8s",
+                    "label": "Agentless discovery for Kubernetes"
+                  },
+                  {
+                    "columnId": "mdcContainersImageAssessment",
+                    "label": "Container image scanning"
+                  },
+                  {
+                    "columnId": "dataSensitivityDiscovery",
+                    "label": "Sensitive data discovery"
+                  },
+                  {
+                    "columnId": "vmScanners",
+                    "label": "Agentless scanning for machines"
+                  },
+                  {
+                    "columnId": "ciem",
+                    "label": "CIEM integration"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName_mc",
+                "comparison": "isEqualTo",
+                "value": "DCSPM"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryGcpDetailedCSPM"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\"\n| where properties[\"environmentName\"]=='GCP'\n| mv-expand offerings = todynamic(properties[\"offerings\"])\n| where offerings[\"offeringType\"] == \"DefenderForServersGcp\"\n| mv-expand extension = offerings\n| extend extensionName = tostring(bag_keys(extension)[0])\n| extend isEnabled = extension[extensionName][\"enabled\"]\n| where isnotnull(isEnabled)\n| extend planSet = pack (tostring(extensionName), tostring(isEnabled))\n| summarize extensions = make_bag(planSet) by ['id']\n| project ['id'],\n    arcAutoProvisioning = extensions.arcAutoProvisioning,\n    mdeAutoProvisioning = extensions.mdeAutoProvisioning,\n    vaAutoProvisioning = extensions.vaAutoProvisioning,\n    vmScanners = iff(isnotnull(extensions.vmScanners), extensions.vmScanners, \"notapplicable\")",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for GCP connectors with Defender for Servers enabled",
+              "noDataMessage": "No GCP connector found with Defender for Servers enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "arcAutoProvisioning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "mdeAutoProvisioning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "vaAutoProvisioning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "vmScanners",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "==",
+                          "thresholdValue": "notapplicable",
+                          "representation": "gray",
+                          "text": "Not applicable (Plan 1 only)"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "arcAutoProvisioning",
+                    "label": "Azure Arc auto provisioining"
+                  },
+                  {
+                    "columnId": "mdeAutoProvisioning",
+                    "label": "Defender for Endpoint integration"
+                  },
+                  {
+                    "columnId": "vaAutoProvisioning",
+                    "label": "Defender Vulnerability Management integration"
+                  },
+                  {
+                    "columnId": "vmScanners",
+                    "label": "Agentless scanning for machines"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName_mc",
+                "comparison": "isEqualTo",
+                "value": "Servers"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryGcpDetailedServers"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\"\n| where properties[\"environmentName\"]=='GCP'\n| mv-expand offerings = todynamic(properties[\"offerings\"])\n| where offerings[\"offeringType\"] == \"DefenderForContainersGcp\"\n| mv-expand extension = offerings\n| extend extensionName = tostring(bag_keys(extension)[0])\n| extend isEnabled = extension[extensionName][\"enabled\"]\n| where isnotnull(isEnabled)\n| extend planSet = pack (tostring(extensionName), tostring(isEnabled))\n| summarize extensions = make_bag(planSet) by ['id']\n| project ['id'],\n    mdcContainersAgentlessDiscoveryK8s = extensions.mdcContainersAgentlessDiscoveryK8s,\n    mdcContainersImageAssessment = extensions.mdcContainersImageAssessment",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for GCP connectors with Defender for Containers enabled",
+              "noDataMessage": "No GCP connector found with Defender for Containers enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "mdcContainersAgentlessDiscoveryK8s",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "mdcContainersImageAssessment",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "mdcContainersAgentlessDiscoveryK8s",
+                    "label": "Agentless discovery for Kubernetes"
+                  },
+                  {
+                    "columnId": "mdcContainersImageAssessment",
+                    "label": "Container image scanning"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName_mc",
+                "comparison": "isEqualTo",
+                "value": "Containers"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryGcpDetailedContainers - Copy"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\n| where type == \"microsoft.security/securityconnectors\"\n| where properties[\"environmentName\"]=='GCP'\n| mv-expand offerings = todynamic(properties[\"offerings\"])\n| where offerings[\"offeringType\"] == \"DefenderForDatabasesGcp\"\n| mv-expand extension = offerings\n| extend extensionName = tostring(bag_keys(extension)[0])\n| extend isEnabled = extension[extensionName][\"enabled\"]\n| where isnotnull(isEnabled)\n| extend planSet = pack (tostring(extensionName), tostring(isEnabled))\n| summarize extensions = make_bag(planSet) by ['id']\n| project ['id'],\n    arcAutoProvisioning = extensions.arcAutoProvisioning",
+              "size": 3,
+              "showAnalytics": true,
+              "title": "Detailed coverage for GCP connectors with Defender for Databases enabled",
+              "noDataMessage": "No GCP connector found with Defender for Databases enabled.",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscriptions}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "arcAutoProvisioning",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "linkTarget": "OpenBlade",
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "==",
+                          "thresholdValue": "true",
+                          "representation": "turquoise",
+                          "text": "Enabled"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "redBright",
+                          "text": "Disabled"
+                        }
+                      ],
+                      "bladeOpenContext": {
+                        "bladeName": "GcpProjectSettingsBlade",
+                        "extensionName": "Microsoft_Azure_Security",
+                        "bladeParameters": [
+                          {
+                            "name": "connectorId",
+                            "source": "column",
+                            "value": "id"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "filter": true,
+                "labelSettings": [
+                  {
+                    "columnId": "id",
+                    "label": "Connector ID"
+                  },
+                  {
+                    "columnId": "arcAutoProvisioning",
+                    "label": "Azure Arc auto provisioning"
+                  }
+                ]
+              },
+              "sortBy": []
+            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "planName_mc",
+                "comparison": "isEqualTo",
+                "value": "Databases"
+              },
+              {
+                "parameterName": "detailedCoverage",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              }
+            ],
+            "name": "queryGcpDetailedDatabases - Copy"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "environment",
+        "comparison": "isEqualTo",
+        "value": "GCP"
+      },
+      "name": "GCP"
+    }
+  ],
+  "fallbackResourceIds": [
+    "Azure Security Center"
+  ],
+  "fromTemplateId": "community-Workbooks/Azure Security Center/Coverage",
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}
