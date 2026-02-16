@@ -123,7 +123,7 @@ Agents in the matrix are **sorted by TotalWeight descending** — highest-risk a
 ## Folder structure
 
 ```
-AIAgents/
+CopilotStudioAgentRiskScanner/
 ├── Invoke-AgentRiskScan.ps1          # Main scanner script
 ├── README.md                         # This file
 ├── HuntingQueries/                   # YAML hunting query files
