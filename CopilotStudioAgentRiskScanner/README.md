@@ -13,10 +13,7 @@ This scanner queries the [`AIAgentsInfo`](https://learn.microsoft.com/en-us/defe
 
 ### Enabling the AI agent inventory
 
-Enabling the Copilot Studio AI agent inventory requires collaboration between a **Defender admin** and a **Power Platform admin**:
-
-1. In the [Microsoft Defender portal](https://security.microsoft.com/) → **System > Settings > Cloud Apps > Copilot Studio AI Agents** — turn on the toggle.
-2. In the [Power Platform admin center](https://admin.preview.powerplatform.microsoft.com/security/threatdetection) → **Security > Threat Protection** — select **Microsoft Defender - Copilot Studio AI Agents** and enable it.
+In the [Microsoft Defender portal](https://security.microsoft.com/) → **System > Settings > Cloud Apps > Copilot Studio AI Agents** — turn on the toggle.
 
 It can take up to 30 minutes for the initial connection, and longer for the full inventory to populate depending on environment size.
 
@@ -41,6 +38,9 @@ It can take up to 30 minutes for the initial connection, and longer for the full
 Connect-MgGraph -Scopes "ThreatHunting.Read.All"
 .\Invoke-AgentRiskScan.ps1 -SkipConnect
 ```
+
+<img width="996" height="853" alt="script_running" src="https://github.com/user-attachments/assets/e4a1323d-ba44-4523-b17b-b0bbea6f3fd1" />
+
 
 ## Prerequisites
 
